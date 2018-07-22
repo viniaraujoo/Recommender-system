@@ -1,0 +1,10 @@
+.hello {
+    border: 5px;
+    border-style: dotted;
+    border-color: blue;
+    max-width: 100px;
+    text-align: center;
+    margin: 20% auto 0 auto;
+    padding: 8px;
+    font-weight: bold;
+}
