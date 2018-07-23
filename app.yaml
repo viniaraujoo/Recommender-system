@@ -1,19 +1,19 @@
-runtime: python27 # versão do python a ser utilizada
-api_version: 1 # versão do aplicativo
-threadsafe: yes # Habilita o uso de multiplas threads (Recomendado para aplicações web)
-service: default # Nome do servico
+runtime: python-compat
+env: flex
+api_version: 1
+threadsafe: yes
+service: default
 
-default_expiration: "1s" # Tempo para que os dados salvos em cache expirem
+default_expiration: "1s"
 
-handlers: # Define as rotas e os scripts que irao gerencia-las
-- url: / # url do handler
-  static_files: frontend/index.html # Definição de quais arquivos estáticos estarão visíveis para esta rota
-  upload: index.html # Arquivo que será retornado quando uma requisição para a rota / for feita
+handlers:
+- url: /
+  static_files: frontend/index.html
+  upload: frontend/index.html
 
-- url: /api/.* # url definida com expressão regular, dessa forma é possível definir um conjunto de urls válidas que passarão por este handler
-  script: main.app # script python que será chamado toda vez que uma requisição para esta url for feita
-                   # É preciso ter uma arquivo chamado main.py que contém a variável app.
+- url: /api/.*
+  script: backend.app
 
-- url: /(.*) # url definida com expressão regular, dessa forma é possível definir um conjunto de urls válidas que passarão por este handler
-  static_files: frontend/\1 # Definição de quais arquivos estáticos estarão visíveis para esta rota
-  upload: frontend/(.*) # Arquivo que será retornado quando uma requisição para esta rota for feita.
+- url: /(.*)
+  static_files: frontend/\1
+  upload: frontend/(.*)

@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello Horld</title>
+        <title>Recomendation System</title>
+        <meta charset="utf-8"/>
         <link rel="stylesheet" href='/css/app.css'/>
     </head>
     <body>
-        <p id="hello" class="hello">Insert text here...</p>
+        <div class="input">
+            <form id="form" action="/api/users" onsubmit="return get_results()">
+                <select name="user" id="users" required>
+                        <option value="" disabled selected>
+                            Selecione o id...
+                        </option>
+                </select>
+                <button type="submit">Recomendar</button>
+            </form>
+        </div>
+        <div id="results_box">
+            <div class="results">
+                <p>Filmes recomendados KNN</p>
+                <ul id='movies' style="text-align: initial">
+                </ul>
+            </div>
+            <div class="results">
+                <p>Explicação</p>
+            </div>
+            <div class="results">
+                <p>Filmes recomendados SVD</p> 
+                <ul id='movies2' style="text-align: initial">
+                </ul>
+            </div>
+        </div>
         <script src="/js/app.js"></script>
     </body>
 </html>
