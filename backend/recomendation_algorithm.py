@@ -3,7 +3,7 @@ import os
 from surprise import Dataset, KNNBasic, Reader, accuracy, SVD
 from surprise.model_selection import cross_validate, PredefinedKFold
 
-__all__ = ['get_top_5_movies', 'user_set']
+__all__ = ['get_top_5_movies_KNN', 'user_set', 'get_top_5_movies_SVD']
 
 items_stream = open('ml-100k/u.item', 'r')
 item_data = items_stream.read().split('\n')
@@ -55,7 +55,7 @@ def get_top_5(uid):
     return sorted(top, key=lambda item: item[1], reverse=True)[:5]
 
 
-def get_top_5_movies(uid):
+def get_top_5_movies_KNN(uid):
     top_5 = get_top_5(uid)
     return [item_data[int(item[0])][1] for item in top_5]
 
@@ -65,14 +65,13 @@ def get_top2_5(uid):
     items = not_watch[int(uid)]
     
     for item in items:
-        top.append((item, algo.predict(uid=uid, iid=str(item)).est))
+        top.append((item, algo2.predict(uid=uid, iid=str(item)).est))
     
     return sorted(top, key=lambda item: item[1], reverse=True)[:5]
 
 
-def get_top2_5_movies(uid):
+def get_top_5_movies_SVD(uid):
     top_5 = get_top2_5(uid)
     return [item_data[int(item[0])][1] for item in top_5]
 
 
-#algo = SVD()
