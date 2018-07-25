@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import webapp2
 import json
-from . import get_top_5_movies_KNN, user_set, get_top_5_movies_SVD, get_top_5_neighbors
+from . import get_top_5_movies_KNN, user_set, get_top_5_movies_SVD, get_top_5_neighbors,rmse_knn,rmse_svd
 
 __all__ = ['app']
 
@@ -14,7 +14,9 @@ class ResultsHandler(webapp2.RequestHandler):
         response = {
             'result_knn': get_top_5_movies_KNN(uid),
             'result_svd': get_top_5_movies_SVD(uid),
-            'neighbors': sorted(list(map(int, get_top_5_neighbors(uid))))
+            'neighbors': sorted(list(map(int, get_top_5_neighbors(uid)))),
+            'rmse_knn':rmse_knn,
+            'rmse_svd': rmse_svd
         }
 
         self.response.headers['Content-Type'] = 'application/json; charset=utf-8'

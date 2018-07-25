@@ -3,7 +3,7 @@ import os
 from surprise import Dataset, KNNBasic, Reader, accuracy, SVD
 from surprise.model_selection import cross_validate, PredefinedKFold
 
-__all__ = ['get_top_5_movies_KNN', 'user_set', 'get_top_5_movies_SVD', 'get_top_5_neighbors']
+__all__ = ['get_top_5_movies_KNN', 'user_set', 'get_top_5_movies_SVD', 'get_top_5_neighbors', 'rmse_knn','rmse_svd']
 
 items_stream = open('ml-100k/u.item', 'r')
 item_data = items_stream.read().split('\n')
@@ -42,6 +42,10 @@ for trainset, testset in pkf.split(data):
     # train and test algorithm.
     algo.fit(trainset)
     algo_svd.fit(trainset)
+    predictions = algo.test(testset)
+    predictions_svd = algo_svd.test(testset)
+    rmse_knn = accuracy.rmse(predictions,verbose=True)
+    rmse_svd = accuracy.rmse(predictions_svd,verbose=True)
 
 
 
