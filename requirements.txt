@@ -1,0 +1,8 @@
+
+numpy
+pandas
+scikit-surprise
+webapp2
+Paste
+WebOb
+gunicorn
