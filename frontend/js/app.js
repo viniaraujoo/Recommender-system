@@ -23,8 +23,7 @@
                         + "atribuidas por estes 5 usuários com perfis mais similares: ";
         
         explication_text.innerText = explication;
-        change_list_content(neighbors, neighbors_element);
-        
+        change_list_content(neighbors, neighbors_element); 
     }
 
     function get_results() {
@@ -32,6 +31,7 @@
         const movies_svd = document.getElementById('movies_svd');
         const rmse_knn = document.getElementById('rmse_knn');
         const rmse_svd = document.getElementById('rmse_svd');
+
 
         request(`/api/results?uid=${form.user.value}`).then(data => {
             change_list_content(data.result_knn, movies_knn);

@@ -2,7 +2,7 @@
 import webapp2
 import json
 import os
-from backend import get_top_5_movies_KNN, user_set, get_top_5_movies_SVD, get_top_5_neighbors,rmse_knn,rmse_svd
+from backend import get_top_5_movies_KNN, user_set, get_top_5_movies_SVD, get_top_5_neighbors,rmse_knn,rmse_svd,get_top_5_cosine
 
 def read_file(path):
     path = os.path.dirname(os.path.realpath(__file__)) + '/frontend' + path
@@ -34,7 +34,8 @@ class ResultsHandler(webapp2.RequestHandler):
             'result_svd': get_top_5_movies_SVD(uid),
             'neighbors': sorted(list(map(int, get_top_5_neighbors(uid)))),
             'rmse_knn':rmse_knn,
-            'rmse_svd': rmse_svd
+            'rmse_svd': rmse_svd,
+            'cosine': sorted(list(map(int, get_top_5_cosine(uid))))
         }
 
         self.response.headers['Content-Type'] = 'application/json; charset=utf-8'
