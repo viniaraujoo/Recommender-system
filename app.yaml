@@ -1,19 +1,22 @@
-runtime: python-compat
+runtime: custom
 env: flex
 api_version: 1
 threadsafe: yes
+entrypoint: gunicorn -b :$PORT main:app
 service: default
 
-default_expiration: "1s"
+default_expiration: 1s
 
-handlers:
-- url: /
-  static_files: frontend/index.html
-  upload: frontend/index.html
+runtime_config:
+  python_version: 2
 
-- url: /api/.*
-  script: backend.app
+resources:
+  cpu: 0.1
+  memory_gb: 0.9
+  disk_size_gb: 10
 
-- url: /(.*)
-  static_files: frontend/\1
-  upload: frontend/(.*)
+manual_scaling:
+  instances: 1
+
+health_check:
+  enable_health_check: false
