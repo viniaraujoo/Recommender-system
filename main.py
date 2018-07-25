@@ -71,3 +71,18 @@ class StaticsFilesHandler(webapp2.RequestHandler):
         except:
             self.response.status = 404
         
+app = webapp2.WSGIApplication([
+    ('/', IndexHandler),
+    ('/api/results.*', ResultsHandler),
+    ('/api/users', UsersIdHandler),
+    ('/.*', StaticsFilesHandler)
+], debug=True)
+
+
+def main():
+    from paste import httpserver
+    httpserver.serve(app, host='127.0.0.1', port='8081')
+
+
+if __name__ == '__main__':
+    main()
