@@ -35,7 +35,7 @@ class ResultsHandler(webapp2.RequestHandler):
             'neighbors': sorted(list(map(int, get_top_5_neighbors(uid)))),
             'rmse_knn':rmse_knn,
             'rmse_svd': rmse_svd,
-            'cosine': sorted(list(map(int, get_top_5_cosine(uid))))
+            'cosine': get_top_5_cosine(uid)
         }
 
         self.response.headers['Content-Type'] = 'application/json; charset=utf-8'

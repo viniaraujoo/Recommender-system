@@ -24,6 +24,7 @@
         
         explication_text.innerText = explication;
         change_list_content(neighbors, neighbors_element); 
+
     }
 
     function get_results() {
@@ -31,6 +32,7 @@
         const movies_svd = document.getElementById('movies_svd');
         const rmse_knn = document.getElementById('rmse_knn');
         const rmse_svd = document.getElementById('rmse_svd');
+        //const cosine_user = document.getElementById('cosine')
 
 
         request(`/api/results?uid=${form.user.value}`).then(data => {
@@ -38,7 +40,9 @@
             change_list_content(data.result_svd, movies_svd);
             rmse_knn.innerText = `RMSE: ${data.rmse_knn}`;
             rmse_svd.innerText = `RMSE: ${data.rmse_svd}`;
-            change_explication_content(data.neighbors);
+            change_explication_content(data.neighbors);   
+            //cosine_user.innerText = data.cosine;
+            console.log(data.cosine) 
         });
         return false;
     }
