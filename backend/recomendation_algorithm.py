@@ -48,8 +48,7 @@ for trainset, testset in pkf.split(data):
     rmse_knn = accuracy.rmse(predictions,verbose=True)
     rmse_svd = accuracy.rmse(predictions_svd,verbose=True)
 
-x = algo.compute_similarities()
-print(x[0][490])
+
 
 def get_top_5(uid):
     top = []
@@ -89,8 +88,9 @@ def get_top_5_neighbors(uid):
 def get_top_5_cosine(uid):
     x = algo.compute_similarities()
     y = get_top_5_neighbors(uid)
+    user = int(uid)-1
     result = list()
     for i in range(5):
-        result.append(x[int(uid)][int(y[i])])
+        result.append(x[user][int(y[i])])
     return result
 

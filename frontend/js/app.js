@@ -20,7 +20,7 @@
                         + "com a nota que outros usuários que tem perfis "
                         + "similares a este perfil, atribuiram aos filmes escolhidos. "
                         + "Os filmes recomendados são os que possuem as maiores notas "
-                        + "atribuidas por estes 5 usuários com perfis mais similares: ";
+                        + "atribuidas por estes 5 usuários com perfis mais similares e seus respectivos cosenos: ";
         
         explication_text.innerText = explication;
         change_list_content(neighbors, neighbors_element); 
@@ -32,7 +32,7 @@
         const movies_svd = document.getElementById('movies_svd');
         const rmse_knn = document.getElementById('rmse_knn');
         const rmse_svd = document.getElementById('rmse_svd');
-        //const cosine_user = document.getElementById('cosine')
+        const cosine_user = document.getElementById('cosine_user')
 
 
         request(`/api/results?uid=${form.user.value}`).then(data => {
@@ -40,9 +40,9 @@
             change_list_content(data.result_svd, movies_svd);
             rmse_knn.innerText = `RMSE: ${data.rmse_knn}`;
             rmse_svd.innerText = `RMSE: ${data.rmse_svd}`;
-            change_explication_content(data.neighbors);   
-            //cosine_user.innerText = data.cosine;
-            console.log(data.cosine) 
+            change_explication_content(data.neighbors);
+            change_list_content(data.cosine, cosine_user);
+      
         });
         return false;
     }
