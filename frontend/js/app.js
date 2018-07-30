@@ -32,7 +32,7 @@
         const movies_svd = document.getElementById('movies_svd');
         const rmse_knn = document.getElementById('rmse_knn');
         const rmse_svd = document.getElementById('rmse_svd');
-        const cosine_user = document.getElementById('cosine_user')
+        
 
 
         request(`/api/results?uid=${form.user.value}`).then(data => {
@@ -41,7 +41,7 @@
             rmse_knn.innerText = `RMSE: ${data.rmse_knn}`;
             rmse_svd.innerText = `RMSE: ${data.rmse_svd}`;
             change_explication_content(data.neighbors);
-            change_list_content(data.cosine, cosine_user);
+            console.log(data.neighbors);
       
         });
         return false;

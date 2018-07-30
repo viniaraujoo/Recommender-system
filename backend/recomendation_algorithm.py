@@ -3,7 +3,7 @@ import os
 from surprise import Dataset, KNNBasic, Reader, accuracy, SVD
 from surprise.model_selection import cross_validate, PredefinedKFold
 
-__all__ = ['get_top_5_movies_KNN', 'user_set', 'get_top_5_movies_SVD', 'get_top_5_neighbors', 'rmse_knn','rmse_svd','get_top_5_cosine']
+__all__ = ['get_top_5_movies_KNN', 'user_set', 'get_top_5_movies_SVD', 'get_top_neighbors', 'rmse_knn','rmse_svd']
 
 items_stream = open('ml-100k/u.item', 'r')
 item_data = items_stream.read().split('\n')
@@ -86,11 +86,18 @@ def get_top_5_neighbors(uid):
     return [algo.trainset.to_raw_uid(iid) for iid in neighbords]
 
 def get_top_5_cosine(uid):
-    x = algo.compute_similarities()
+    x = algo.sim
     y = get_top_5_neighbors(uid)
     user = int(uid)-1
     result = list()
     for i in range(5):
-        result.append(x[user][int(y[i])])
+        result.append(x[user][int(y[i])-1])
     return result
 
+def get_top_neighbors(uid):
+    y = get_top_5_neighbors(uid)
+    x = get_top_5_cosine(uid)
+    result = list()
+    for i in range(5):
+        result.append(str(y[i])+" - "+str(x[i]))
+    return result
